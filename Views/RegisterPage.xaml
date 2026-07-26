@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudySync.ViewModels"
+             x:Class="StudySync.Views.RegisterPage"
+             x:DataType="vm:RegisterViewModel"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView ContentPage.IgnoreSafeArea="True">
+        <Grid RowDefinitions="Auto, *">
+
+            <BoxView Grid.Row="0" HeightRequest="180" Color="{StaticResource Primary}" />
+
+            <VStackLayout Grid.Row="0" Margin="24,50,24,0" Spacing="4" HorizontalOptions="Center">
+                <Label Text="Create Account" FontSize="30" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+                <Label Text="Join StudySync today" FontSize="14" TextColor="#D1C4E9" HorizontalOptions="Center" />
+            </VStackLayout>
+
+            <Border Grid.Row="1" Style="{StaticResource CardFrame}" Margin="24,-30,24,24" VerticalOptions="Start">
+                <VStackLayout Spacing="14">
+
+                    <!-- Error Message -->
+                    <Border BackgroundColor="#FFEBEE" Stroke="#EF9A9A" StrokeShape="RoundRectangle 8" Padding="12"
+                            IsVisible="{Binding ErrorMessage, Converter={StaticResource InverseBoolConverter}, ConverterParameter=EmptyCheck}">
+                        <Label Text="{Binding ErrorMessage}" TextColor="#C62828" FontSize="13" />
+                    </Border>
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Full Name" Style="{StaticResource SubheaderLabel}" />
+                        <Entry Placeholder="Jane Doe" Text="{Binding FullName}" />
+                    </VStackLayout>
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Email Address" Style="{StaticResource SubheaderLabel}" />
+                        <Entry Placeholder="jane@university.edu" Keyboard="Email" Text="{Binding Email}" />
+                    </VStackLayout>
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Password" Style="{StaticResource SubheaderLabel}" />
+                        <Entry Placeholder="Min 6 characters" IsPassword="True" Text="{Binding Password}" />
+                    </VStackLayout>
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Confirm Password" Style="{StaticResource SubheaderLabel}" />
+                        <Entry Placeholder="Re-enter password" IsPassword="True" Text="{Binding ConfirmPassword}" />
+                    </VStackLayout>
+
+                    <Button Text="Register" Style="{StaticResource PrimaryButton}" Command="{Binding RegisterCommand}" Margin="0,12,0,0" />
+
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="{StaticResource Primary}" HorizontalOptions="Center" />
+
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="4" Margin="0,12,0,0">
+                        <Label Text="Already have an account?" Style="{StaticResource SubheaderLabel}" />
+                        <Label Text="Sign In" TextColor="{StaticResource Primary}" FontAttributes="Bold" Style="{StaticResource SubheaderLabel}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding NavigateToLoginCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
+
+                </VStackLayout>
+            </Border>
+        </Grid>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudySync.ViewModels"
+             x:Class="StudySync.Views.ExamDetailPage"
+             x:DataType="vm:ExamDetailViewModel"
+             Title="{Binding Title}">
+
+    <ScrollView Padding="16">
+        <VStackLayout Spacing="16">
+
+            <Border Style="{StaticResource CardFrame}">
+                <VStackLayout Spacing="14">
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Course *" Style="{StaticResource SubheaderLabel}" />
+                        <Picker ItemsSource="{Binding Courses}" ItemDisplayBinding="{Binding CourseCode}"
+                                SelectedItem="{Binding SelectedCourse}" Title="Select Course" />
+                    </VStackLayout>
+
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
+                        <VStackLayout Grid.Column="0" Spacing="4">
+                            <Label Text="Exam Date *" Style="{StaticResource SubheaderLabel}" />
+                            <DatePicker Date="{Binding ExamDate}" Format="yyyy-MM-dd" />
+                        </VStackLayout>
+
+                        <VStackLayout Grid.Column="1" Spacing="4">
+                            <Label Text="Exam Time *" Style="{StaticResource SubheaderLabel}" />
+                            <TimePicker Time="{Binding ExamTime}" Format="hh:mm tt" />
+                        </VStackLayout>
+                    </Grid>
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Venue / Room *" Style="{StaticResource SubheaderLabel}" />
+                        <Entry Placeholder="e.g. Main Auditorium" Text="{Binding Venue}" />
+                    </VStackLayout>
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Importance Level *" Style="{StaticResource SubheaderLabel}" />
+                        <Picker ItemsSource="{Binding ImportanceOptions}" SelectedItem="{Binding Importance}" />
+                    </VStackLayout>
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Notes &amp; Topics to Cover" Style="{StaticResource SubheaderLabel}" />
+                        <Editor Placeholder="Key topics, chapters, formula sheets..." Text="{Binding Notes}" HeightRequest="90" />
+                    </VStackLayout>
+
+                </VStackLayout>
+            </Border>
+
+            <Button Text="Save Exam" Style="{StaticResource PrimaryButton}" Command="{Binding SaveCommand}" />
+
+        </VStackLayout>
+    </ScrollView>
+</ContentPage>

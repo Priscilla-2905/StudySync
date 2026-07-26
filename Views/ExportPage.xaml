@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudySync.ViewModels"
+             x:Class="StudySync.Views.ExportPage"
+             x:DataType="vm:ExportViewModel"
+             Title="Data Export">
+
+    <ScrollView Padding="16">
+        <VStackLayout Spacing="20">
+
+            <Border Style="{StaticResource CardFrame}">
+                <VStackLayout Spacing="12">
+                    <Label Text="Export Application Data" Style="{StaticResource HeaderLabel}" />
+                    <Label Text="Backup your data or export to CSV spreadsheet files for offline record keeping." Style="{StaticResource SubheaderLabel}" />
+
+                    <VStackLayout Spacing="12" Margin="0,8">
+                        <Button Text="📄 Export Complete Backup (JSON)" Style="{StaticResource PrimaryButton}" Command="{Binding ExportJsonCommand}" />
+                        <Button Text="📊 Export Spreadsheets (CSV)" Style="{StaticResource SecondaryButton}" Command="{Binding ExportCsvCommand}" />
+                    </VStackLayout>
+
+                    <Label Text="{Binding StatusMessage}" TextColor="{StaticResource Primary}" HorizontalOptions="Center" FontSize="13" Margin="0,8,0,0" />
+                </VStackLayout>
+            </Border>
+
+        </VStackLayout>
+    </ScrollView>
+</ContentPage>

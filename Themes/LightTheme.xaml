@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    x:Class="StudySync.Themes.LightTheme">
+
+    <!-- Primary Accent Colors -->
+    <Color x:Key="Primary">#6C63FF</Color>
+    <Color x:Key="PrimaryDark">#534BAE</Color>
+    <Color x:Key="PrimaryLight">#9E97FF</Color>
+    <Color x:Key="Secondary">#FF6584</Color>
+    <Color x:Key="Tertiary">#33D17A</Color>
+
+    <!-- Backgrounds -->
+    <Color x:Key="PageBackground">#F8F9FE</Color>
+    <Color x:Key="CardBackground">#FFFFFF</Color>
+    <Color x:Key="SurfaceBackground">#F1F3F9</Color>
+
+    <!-- Text Colors -->
+    <Color x:Key="TextPrimary">#1A1D2E</Color>
+    <Color x:Key="TextSecondary">#6E7491</Color>
+    <Color x:Key="TextMuted">#9DA4C4</Color>
+    <Color x:Key="TextOnPrimary">#FFFFFF</Color>
+
+    <!-- Borders & Dividers -->
+    <Color x:Key="BorderColor">#E2E8F0</Color>
+    <Color x:Key="DividerColor">#EDF2F7</Color>
+
+    <!-- Status Colors -->
+    <Color x:Key="Success">#4CAF50</Color>
+    <Color x:Key="Warning">#FF9800</Color>
+    <Color x:Key="Danger">#F44336</Color>
+    <Color x:Key="Info">#2196F3</Color>
+
+</ResourceDictionary>

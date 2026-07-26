@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudySync.ViewModels"
+             xmlns:models="clr-namespace:StudySync.Models"
+             x:Class="StudySync.Views.TimetableEntryPage"
+             x:DataType="vm:TimetableEntryViewModel"
+             Title="{Binding Title}">
+
+    <ScrollView Padding="16">
+        <VStackLayout Spacing="16">
+
+            <Border Style="{StaticResource CardFrame}">
+                <VStackLayout Spacing="14">
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Course *" Style="{StaticResource SubheaderLabel}" />
+                        <Picker ItemsSource="{Binding Courses}" ItemDisplayBinding="{Binding CourseCode}"
+                                SelectedItem="{Binding SelectedCourse}" Title="Select Course" />
+                    </VStackLayout>
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Day of Week *" Style="{StaticResource SubheaderLabel}" />
+                        <Picker ItemsSource="{Binding DaysOfWeek}" SelectedItem="{Binding SelectedDay}" />
+                    </VStackLayout>
+
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
+                        <VStackLayout Grid.Column="0" Spacing="4">
+                            <Label Text="Start Time *" Style="{StaticResource SubheaderLabel}" />
+                            <TimePicker Time="{Binding StartTime}" Format="hh:mm tt" />
+                        </VStackLayout>
+
+                        <VStackLayout Grid.Column="1" Spacing="4">
+                            <Label Text="End Time *" Style="{StaticResource SubheaderLabel}" />
+                            <TimePicker Time="{Binding EndTime}" Format="hh:mm tt" />
+                        </VStackLayout>
+                    </Grid>
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Venue / Room" Style="{StaticResource SubheaderLabel}" />
+                        <Entry Placeholder="e.g. Hall B, Room 204" Text="{Binding Venue}" />
+                    </VStackLayout>
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Lecturer" Style="{StaticResource SubheaderLabel}" />
+                        <Entry Placeholder="e.g. Prof. Smith" Text="{Binding Lecturer}" />
+                    </VStackLayout>
+
+                </VStackLayout>
+            </Border>
+
+            <Button Text="Save Lecture" Style="{StaticResource PrimaryButton}" Command="{Binding SaveCommand}" />
+
+        </VStackLayout>
+    </ScrollView>
+</ContentPage>

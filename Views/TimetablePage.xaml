@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudySync.ViewModels"
+             xmlns:models="clr-namespace:StudySync.Models"
+             x:Class="StudySync.Views.TimetablePage"
+             x:DataType="vm:TimetableViewModel"
+             Title="Lecture Timetable">
+
+    <Grid RowDefinitions="Auto, *, Auto" Padding="16" RowSpacing="12">
+
+        <!-- Day Selector Horizontal Scroll -->
+        <CollectionView Grid.Row="0" ItemsSource="{Binding DaysOfWeek}" SelectionMode="Single"
+                        SelectedItem="{Binding SelectedDay}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="8" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:StudyDay">
+                    <Border Style="{StaticResource CardFrame}" Padding="16,8">
+                        <Label Text="{Binding .}" FontAttributes="Bold" Style="{StaticResource BodyLabel}" />
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Lectures List -->
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Entries}" SelectionMode="None">
+            <CollectionView.EmptyView>
+                <VStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
+                    <Label Text="No lectures scheduled for this day." Style="{StaticResource HeaderLabel}" HorizontalOptions="Center" />
+                    <Label Text="Tap '+ Add Lecture' below to build your schedule." Style="{StaticResource SubheaderLabel}" HorizontalOptions="Center" />
+                </VStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:TimetableEntry">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete" BackgroundColor="#F44336"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TimetableViewModel}}, Path=DeleteEntryCommand}"
+                                           CommandParameter="{Binding .}" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Border Style="{StaticResource CardFrame}" Margin="0,0,0,10">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TimetableViewModel}}, Path=EditEntryCommand}" CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
+                                <BoxView Grid.Column="0" WidthRequest="6" CornerRadius="3" Color="{Binding Course.Colour}" />
+
+                                <VStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                    <Label Text="{Binding Course.CourseCode}" FontAttributes="Bold" Style="{StaticResource HeaderLabel}" />
+                                    <Label Text="{Binding Course.CourseName}" Style="{StaticResource BodyLabel}" />
+                                    <Label Text="{Binding Venue, StringFormat='Venue: {0}'}" Style="{StaticResource SubheaderLabel}" />
+                                    <Label Text="{Binding Lecturer, StringFormat='Lecturer: {0}'}" FontSize="12" TextColor="{StaticResource TextMuted}" />
+                                </VStackLayout>
+
+                                <VStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End">
+                                    <Label Text="{Binding StartTime, Converter={StaticResource TimeSpanToStringConverter}}" FontAttributes="Bold" TextColor="{StaticResource Primary}" FontSize="13" />
+                                    <Label Text="to" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+                                    <Label Text="{Binding EndTime, Converter={StaticResource TimeSpanToStringConverter}}" FontAttributes="Bold" TextColor="{StaticResource Primary}" FontSize="13" />
+                                </VStackLayout>
+                            </Grid>
+                        </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="2" Text="+ Add Lecture" Style="{StaticResource PrimaryButton}" Command="{Binding AddEntryCommand}" />
+
+    </Grid>
+</ContentPage>

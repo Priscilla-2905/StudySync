@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudySync.ViewModels"
+             xmlns:models="clr-namespace:StudySync.Models"
+             x:Class="StudySync.Views.ExamsPage"
+             x:DataType="vm:ExamsViewModel"
+             Title="Exams Tracker">
+
+    <Grid RowDefinitions="*, Auto" Padding="16" RowSpacing="12">
+
+        <CollectionView Grid.Row="0" ItemsSource="{Binding Exams}" SelectionMode="None">
+            <CollectionView.EmptyView>
+                <VStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
+                    <Label Text="No upcoming exams recorded." Style="{StaticResource HeaderLabel}" HorizontalOptions="Center" />
+                    <Label Text="Tap '+ Add Exam' below to track your test dates." Style="{StaticResource SubheaderLabel}" HorizontalOptions="Center" />
+                </VStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Exam">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete" BackgroundColor="#F44336"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ExamsViewModel}}, Path=DeleteExamCommand}"
+                                           CommandParameter="{Binding .}" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Border Style="{StaticResource CardFrame}" Margin="0,0,0,12">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ExamsViewModel}}, Path=EditExamCommand}" CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
+                                <BoxView Grid.Column="0" WidthRequest="6" CornerRadius="3" Color="{Binding Course.Colour}" />
+
+                                <VStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                    <HorizontalStackLayout Spacing="8">
+                                        <Label Text="{Binding Course.CourseCode}" FontAttributes="Bold" Style="{StaticResource HeaderLabel}" />
+                                        <Border BackgroundColor="#E0E0E0" StrokeShape="RoundRectangle 4" Padding="6,2">
+                                            <Label Text="{Binding Importance, StringFormat='{0} Importance'}" FontSize="10" TextColor="#333" />
+                                        </Border>
+                                    </HorizontalStackLayout>
+
+                                    <Label Text="{Binding Venue, StringFormat='Venue: {0}'}" Style="{StaticResource BodyLabel}" />
+                                    <Label Text="{Binding ExamDate, StringFormat='Date: {0:ddd, MMM dd, yyyy}'}" Style="{StaticResource SubheaderLabel}" />
+                                </VStackLayout>
+
+                                <VStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" Spacing="2">
+                                    <Border BackgroundColor="{StaticResource Primary}" StrokeShape="RoundRectangle 8" Padding="10,6">
+                                        <Label Text="{Binding CountdownDisplay}" FontSize="12" TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" />
+                                    </Border>
+                                    <Label Text="{Binding Time, Converter={StaticResource TimeSpanToStringConverter}}" FontSize="11" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+                                </VStackLayout>
+                            </Grid>
+                        </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="1" Text="+ Add Exam" Style="{StaticResource PrimaryButton}" Command="{Binding AddExamCommand}" />
+
+    </Grid>
+</ContentPage>

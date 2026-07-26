@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudySync.ViewModels"
+             x:Class="StudySync.Views.PomodoroPage"
+             x:DataType="vm:PomodoroViewModel"
+             Title="Pomodoro Timer">
+
+    <ScrollView Padding="16">
+        <VStackLayout Spacing="24" HorizontalOptions="Center" VerticalOptions="Center">
+
+            <!-- Mode Header Badge -->
+            <Border BackgroundColor="{StaticResource Primary}" StrokeShape="RoundRectangle 20" Padding="16,8" HorizontalOptions="Center">
+                <Label Text="{Binding ModeDisplay}" FontSize="16" FontAttributes="Bold" TextColor="White" />
+            </Border>
+
+            <!-- Circular Progress Timer Container -->
+            <Grid WidthRequest="260" HeightRequest="260" HorizontalOptions="Center">
+                <Ellipse WidthRequest="260" HeightRequest="260" Stroke="{StaticResource SurfaceBackground}" StrokeThickness="16" />
+                <Ellipse WidthRequest="260" HeightRequest="260" Stroke="{StaticResource Primary}" StrokeThickness="16"
+                         StrokeDashArray="1,0" Scale="{Binding Progress}" />
+
+                <VStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="4">
+                    <Label Text="{Binding TimerDisplay}" FontSize="48" FontAttributes="Bold" TextColor="{StaticResource Primary}" HorizontalOptions="Center" />
+                    <Label Text="{Binding CompletedCycles, StringFormat='Cycles: {0}'}" FontSize="14" TextColor="{StaticResource TextSecondary}" HorizontalOptions="Center" />
+                </VStackLayout>
+            </Grid>
+
+            <!-- Control Buttons Row -->
+            <HorizontalStackLayout Spacing="16" HorizontalOptions="Center">
+                <Button Text="Start" Style="{StaticResource PrimaryButton}" Command="{Binding StartTimerCommand}"
+                        IsVisible="{Binding IsRunning, Converter={StaticResource InverseBoolConverter}}" WidthRequest="110" />
+
+                <Button Text="Pause" Style="{StaticResource SecondaryButton}" Command="{Binding PauseTimerCommand}"
+                        IsVisible="{Binding IsRunning}" WidthRequest="110" />
+
+                <Button Text="Reset" Style="{StaticResource SecondaryButton}" Command="{Binding ResetTimerCommand}" WidthRequest="110" />
+            </HorizontalStackLayout>
+
+            <!-- Duration Customizer Card -->
+            <Border Style="{StaticResource CardFrame}" WidthRequest="320">
+                <VStackLayout Spacing="12">
+                    <Label Text="Timer Durations" Style="{StaticResource HeaderLabel}" />
+
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
+                        <VStackLayout Grid.Column="0" Spacing="4">
+                            <Label Text="Work (min)" Style="{StaticResource SubheaderLabel}" />
+                            <Entry Text="{Binding WorkMinutes}" Keyboard="Numeric" />
+                        </VStackLayout>
+
+                        <VStackLayout Grid.Column="1" Spacing="4">
+                            <Label Text="Break (min)" Style="{StaticResource SubheaderLabel}" />
+                            <Entry Text="{Binding BreakMinutes}" Keyboard="Numeric" />
+                        </VStackLayout>
+                    </Grid>
+                </VStackLayout>
+            </Border>
+
+        </VStackLayout>
+    </ScrollView>
+</ContentPage>

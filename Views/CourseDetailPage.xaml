@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudySync.ViewModels"
+             x:Class="StudySync.Views.CourseDetailPage"
+             x:DataType="vm:CourseDetailViewModel"
+             Title="{Binding Title}">
+
+    <ScrollView Padding="16">
+        <VStackLayout Spacing="16">
+
+            <Border Style="{StaticResource CardFrame}">
+                <VStackLayout Spacing="14">
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Course Code *" Style="{StaticResource SubheaderLabel}" />
+                        <Entry Placeholder="e.g. CS101" Text="{Binding CourseCode}" />
+                    </VStackLayout>
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Course Name *" Style="{StaticResource SubheaderLabel}" />
+                        <Entry Placeholder="e.g. Data Structures &amp; Algorithms" Text="{Binding CourseName}" />
+                    </VStackLayout>
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Lecturer / Instructor" Style="{StaticResource SubheaderLabel}" />
+                        <Entry Placeholder="e.g. Dr. Alan Turing" Text="{Binding Lecturer}" />
+                    </VStackLayout>
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Credit Hours" Style="{StaticResource SubheaderLabel}" />
+                        <Entry Text="{Binding Credits}" Keyboard="Numeric" />
+                    </VStackLayout>
+
+                    <VStackLayout Spacing="8">
+                        <Label Text="Course Color Badge" Style="{StaticResource SubheaderLabel}" />
+                        <CollectionView ItemsSource="{Binding ColorOptions}" SelectionMode="Single"
+                                        SelectedItem="{Binding SelectedColour}">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Horizontal" Span="1" HorizontalItemSpacing="12" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="x:String">
+                                    <BoxView WidthRequest="36" HeightRequest="36" CornerRadius="18" Color="{Binding .}" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VStackLayout>
+
+                </VStackLayout>
+            </Border>
+
+            <Button Text="Save Course" Style="{StaticResource PrimaryButton}" Command="{Binding SaveCommand}" />
+
+        </VStackLayout>
+    </ScrollView>
+</ContentPage>

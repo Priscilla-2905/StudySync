@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudySync.ViewModels"
+             xmlns:models="clr-namespace:StudySync.Models"
+             x:Class="StudySync.Views.AssignmentsPage"
+             x:DataType="vm:AssignmentsViewModel"
+             Title="Assignments">
+
+    <Grid RowDefinitions="Auto, *, Auto" Padding="16" RowSpacing="12">
+
+        <!-- Filters & Sorting Bar -->
+        <Grid Grid.Row="0" ColumnDefinitions="*, *" ColumnSpacing="12">
+            <VStackLayout Grid.Column="0" Spacing="2">
+                <Label Text="Filter Status" FontSize="11" TextColor="{StaticResource TextSecondary}" />
+                <Picker ItemsSource="{Binding FilterOptions}" SelectedItem="{Binding SelectedFilter}" HeightRequest="40" />
+            </VStackLayout>
+
+            <VStackLayout Grid.Column="1" Spacing="2">
+                <Label Text="Sort By" FontSize="11" TextColor="{StaticResource TextSecondary}" />
+                <Picker ItemsSource="{Binding SortOptions}" SelectedItem="{Binding SelectedSort}" HeightRequest="40" />
+            </VStackLayout>
+        </Grid>
+
+        <!-- Assignments List -->
+        <CollectionView Grid.Row="1" ItemsSource="{Binding FilteredAssignments}" SelectionMode="None">
+            <CollectionView.EmptyView>
+                <VStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
+                    <Label Text="No assignments found." Style="{StaticResource HeaderLabel}" HorizontalOptions="Center" />
+                    <Label Text="Tap '+ Add Assignment' below to create one." Style="{StaticResource SubheaderLabel}" HorizontalOptions="Center" />
+                </VStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Assignment">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete" BackgroundColor="#F44336"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AssignmentsViewModel}}, Path=DeleteAssignmentCommand}"
+                                           CommandParameter="{Binding .}" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Border Style="{StaticResource CardFrame}" Margin="0,0,0,10">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AssignmentsViewModel}}, Path=EditAssignmentCommand}" CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
+                                <BoxView Grid.Column="0" WidthRequest="6" CornerRadius="3" Color="{Binding Course.Colour}" />
+
+                                <VStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                    <HorizontalStackLayout Spacing="8">
+                                        <Label Text="{Binding Course.CourseCode}" FontAttributes="Bold" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                                        <Border BackgroundColor="{Binding Status, Converter={StaticResource StatusToColorConverter}}"
+                                                StrokeShape="RoundRectangle 4" Padding="6,1">
+                                            <Label Text="{Binding StatusDisplay}" FontSize="10" TextColor="White" FontAttributes="Bold" />
+                                        </Border>
+                                    </HorizontalStackLayout>
+
+                                    <Label Text="{Binding Title}" FontAttributes="Bold" Style="{StaticResource BodyLabel}" />
+                                    <Label Text="{Binding Deadline, Converter={StaticResource DateToCountdownConverter}}"
+                                           FontSize="12" TextColor="{StaticResource Primary}" FontAttributes="Bold" />
+                                </VStackLayout>
+
+                                <VStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" Spacing="2">
+                                    <Border BackgroundColor="{Binding Priority, Converter={StaticResource PriorityToColorConverter}}"
+                                            StrokeShape="RoundRectangle 4" Padding="6,2">
+                                        <Label Text="{Binding Priority}" FontSize="10" TextColor="White" FontAttributes="Bold" />
+                                    </Border>
+                                    <Label Text="{Binding EstimatedHours, StringFormat='~{0} hrs'}" FontSize="11" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+                                </VStackLayout>
+                            </Grid>
+                        </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="2" Text="+ Add Assignment" Style="{StaticResource PrimaryButton}" Command="{Binding AddAssignmentCommand}" />
+
+    </Grid>
+</ContentPage>

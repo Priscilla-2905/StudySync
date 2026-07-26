@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudySync.ViewModels"
+             x:Class="StudySync.Views.ProfilePage"
+             x:DataType="vm:ProfileViewModel"
+             Title="User Profile">
+
+    <ScrollView Padding="16">
+        <VStackLayout Spacing="20">
+
+            <!-- Personal Details Card -->
+            <Border Style="{StaticResource CardFrame}">
+                <VStackLayout Spacing="12">
+                    <Label Text="Personal Information" Style="{StaticResource HeaderLabel}" />
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Full Name" Style="{StaticResource SubheaderLabel}" />
+                        <Entry Text="{Binding FullName}" />
+                    </VStackLayout>
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Email Address" Style="{StaticResource SubheaderLabel}" />
+                        <Entry Text="{Binding Email}" IsReadOnly="True" Opacity="0.7" />
+                    </VStackLayout>
+
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
+                        <VStackLayout Grid.Column="0" Spacing="4">
+                            <Label Text="Student ID" Style="{StaticResource SubheaderLabel}" />
+                            <Entry Text="{Binding StudentId}" Placeholder="e.g. STU12345" />
+                        </VStackLayout>
+                        <VStackLayout Grid.Column="1" Spacing="4">
+                            <Label Text="Academic Year" Style="{StaticResource SubheaderLabel}" />
+                            <Entry Text="{Binding AcademicYear}" Placeholder="e.g. Year 3" />
+                        </VStackLayout>
+                    </Grid>
+
+                    <VStackLayout Spacing="4">
+                        <Label Text="Degree Program" Style="{StaticResource SubheaderLabel}" />
+                        <Entry Text="{Binding Program}" Placeholder="e.g. Computer Science" />
+                    </VStackLayout>
+
+                </VStackLayout>
+            </Border>
+
+            <!-- Study Preferences Card -->
+            <Border Style="{StaticResource CardFrame}">
+                <VStackLayout Spacing="14">
+                    <Label Text="Study Schedule Preferences" Style="{StaticResource HeaderLabel}" />
+
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
+                        <VStackLayout Grid.Column="0" Spacing="4">
+                            <Label Text="Preferred Start" Style="{StaticResource SubheaderLabel}" />
+                            <TimePicker Time="{Binding PreferredStart}" Format="hh:mm tt" />
+                        </VStackLayout>
+                        <VStackLayout Grid.Column="1" Spacing="4">
+                            <Label Text="Preferred End" Style="{StaticResource SubheaderLabel}" />
+                            <TimePicker Time="{Binding PreferredEnd}" Format="hh:mm tt" />
+                        </VStackLayout>
+                    </Grid>
+
+                    <VStackLayout Spacing="4">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <Label Grid.Column="0" Text="Daily Study Limit (Hours)" Style="{StaticResource SubheaderLabel}" />
+                            <Label Grid.Column="1" Text="{Binding DailyLimit, StringFormat='{0:F1} hrs'}" FontAttributes="Bold" TextColor="{StaticResource Primary}" />
+                        </Grid>
+                        <Slider Minimum="1" Maximum="12" Value="{Binding DailyLimit}" MinimumTrackColor="{StaticResource Primary}" />
+                    </VStackLayout>
+
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
+                        <VStackLayout Grid.Column="0" Spacing="4">
+                            <Label Text="Session Length (min)" Style="{StaticResource SubheaderLabel}" />
+                            <Entry Text="{Binding SessionLength}" Keyboard="Numeric" />
+                        </VStackLayout>
+                        <VStackLayout Grid.Column="1" Spacing="4">
+                            <Label Text="Break Length (min)" Style="{StaticResource SubheaderLabel}" />
+                            <Entry Text="{Binding BreakLength}" Keyboard="Numeric" />
+                        </VStackLayout>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*, Auto" Margin="0,4">
+                        <Label Grid.Column="0" Text="Include Weekend Study" VerticalOptions="Center" Style="{StaticResource BodyLabel}" />
+                        <Switch Grid.Column="1" IsToggled="{Binding WeekendStudy}" OnColor="{StaticResource Primary}" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*, Auto" Margin="0,4">
+                        <Label Grid.Column="0" Text="Dark Mode Theme" VerticalOptions="Center" Style="{StaticResource BodyLabel}" />
+                        <Switch Grid.Column="1" IsToggled="{Binding DarkMode}" OnColor="{StaticResource Primary}" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*, Auto" Margin="0,4">
+                        <Label Grid.Column="0" Text="Local Reminders" VerticalOptions="Center" Style="{StaticResource BodyLabel}" />
+                        <Switch Grid.Column="1" IsToggled="{Binding NotificationsEnabled}" OnColor="{StaticResource Primary}" />
+                    </Grid>
+
+                </VStackLayout>
+            </Border>
+
+            <!-- Save & Logout Buttons -->
+            <VStackLayout Spacing="12">
+                <Button Text="Save Profile &amp; Settings" Style="{StaticResource PrimaryButton}" Command="{Binding SaveCommand}" />
+                <Button Text="Log Out" Style="{StaticResource SecondaryButton}" Command="{Binding LogoutCommand}" TextColor="{StaticResource Danger}" />
+
+                <Label Text="{Binding StatusMessage}" TextColor="{StaticResource Success}" HorizontalOptions="Center" FontSize="13" />
+            </VStackLayout>
+
+        </VStackLayout>
+    </ScrollView>
+</ContentPage>

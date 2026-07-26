@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.0" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Models\*.cs" Link="Models\%(Filename)%(Extension)" />
+    <Compile Include="..\Data\*.cs" Link="Data\%(Filename)%(Extension)" />
+    <Compile Include="..\Helpers\*.cs" Link="Helpers\%(Filename)%(Extension)" />
+    <Compile Include="..\Services\Interfaces\*.cs" Link="Services\Interfaces\%(Filename)%(Extension)" />
+    <Compile Include="..\Services\AuthenticationService.cs" Link="Services\AuthenticationService.cs" />
+    <Compile Include="..\Services\ScheduleGeneratorService.cs" Link="Services\ScheduleGeneratorService.cs" />
+    <Compile Include="..\Services\StatisticsService.cs" Link="Services\StatisticsService.cs" />
+    <Compile Include="..\Services\PreferenceService.cs" Link="Services\PreferenceService.cs" />
+    <Compile Include="..\Services\ExportService.cs" Link="Services\ExportService.cs" />
+  </ItemGroup>
+
+</Project>

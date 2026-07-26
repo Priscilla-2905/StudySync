@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudySync.ViewModels"
+             x:Class="StudySync.Views.CalendarPage"
+             x:DataType="vm:CalendarViewModel"
+             Title="Calendar">
+
+    <Grid RowDefinitions="Auto, *" Padding="16" RowSpacing="16">
+
+        <!-- Date Picker Card -->
+        <Border Grid.Row="0" Style="{StaticResource CardFrame}">
+            <VStackLayout Spacing="8">
+                <Label Text="Select Date" Style="{StaticResource HeaderLabel}" />
+                <DatePicker Date="{Binding SelectedDate}" Format="dddd, MMMM dd, yyyy" HeightRequest="44" />
+            </VStackLayout>
+        </Border>
+
+        <!-- Events List for Selected Date -->
+        <VStackLayout Grid.Row="1" Spacing="10">
+            <Label Text="Events for Selected Day" Style="{StaticResource HeaderLabel}" />
+
+            <CollectionView ItemsSource="{Binding DayEvents}" SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <Border Style="{StaticResource CardFrame}" Padding="20">
+                        <Label Text="No lectures, assignments, exams, or study sessions on this date."
+                               HorizontalOptions="Center" TextColor="{StaticResource TextMuted}" HorizontalTextAlignment="Center" />
+                    </Border>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:CalendarEventItem">
+                        <Border Style="{StaticResource CardFrame}" Margin="0,0,0,8" Padding="12">
+                            <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
+                                <BoxView Grid.Column="0" WidthRequest="6" CornerRadius="3" Color="{Binding Color}" />
+
+                                <VStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                    <Label Text="{Binding Title}" FontAttributes="Bold" Style="{StaticResource BodyLabel}" />
+                                    <Label Text="{Binding Subtitle}" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                                </VStackLayout>
+
+                                <VStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End">
+                                    <Label Text="{Binding TimeDisplay}" FontAttributes="Bold" FontSize="12" TextColor="{StaticResource Primary}" />
+                                    <Label Text="{Binding EventType}" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="End" />
+                                </VStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VStackLayout>
+
+    </Grid>
+</ContentPage>

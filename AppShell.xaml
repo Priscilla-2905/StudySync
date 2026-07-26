@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="StudySync.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:StudySync.Views"
+    Title="StudySync"
+    Shell.FlyoutBehavior="Flyout">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style Class="FlyoutItemLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimary}}" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Margin" Value="12,0,0,0" />
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <!-- Auth Route (outside tabs) -->
+    <ShellItem Route="LoginPage" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate views:LoginPage}" />
+    </ShellItem>
+
+    <ShellItem Route="RegisterPage" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate views:RegisterPage}" />
+    </ShellItem>
+
+    <!-- Main TabBar Application Navigation -->
+    <TabBar>
+        <Tab Title="Dashboard" Icon="dashboard.png">
+            <ShellContent Route="DashboardPage" ContentTemplate="{DataTemplate views:DashboardPage}" />
+        </Tab>
+        <Tab Title="Calendar" Icon="calendar.png">
+            <ShellContent Route="CalendarPage" ContentTemplate="{DataTemplate views:CalendarPage}" />
+        </Tab>
+        <Tab Title="Timetable" Icon="timetable.png">
+            <ShellContent Route="TimetablePage" ContentTemplate="{DataTemplate views:TimetablePage}" />
+        </Tab>
+        <Tab Title="Schedule" Icon="schedule.png">
+            <ShellContent Route="StudySchedulePage" ContentTemplate="{DataTemplate views:StudySchedulePage}" />
+        </Tab>
+        <Tab Title="To-Do" Icon="todo.png">
+            <ShellContent Route="TodoPage" ContentTemplate="{DataTemplate views:TodoPage}" />
+        </Tab>
+    </TabBar>
+
+    <!-- Flyout Navigation Items -->
+    <FlyoutItem Title="My Courses" Route="CoursesPage">
+        <ShellContent ContentTemplate="{DataTemplate views:CoursesPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Assignments" Route="AssignmentsPage">
+        <ShellContent ContentTemplate="{DataTemplate views:AssignmentsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Exams Tracker" Route="ExamsPage">
+        <ShellContent ContentTemplate="{DataTemplate views:ExamsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Pomodoro Timer" Route="PomodoroPage">
+        <ShellContent ContentTemplate="{DataTemplate views:PomodoroPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Analytics" Route="StatisticsPage">
+        <ShellContent ContentTemplate="{DataTemplate views:StatisticsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="User Profile" Route="ProfilePage">
+        <ShellContent ContentTemplate="{DataTemplate views:ProfilePage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Data Export" Route="ExportPage">
+        <ShellContent ContentTemplate="{DataTemplate views:ExportPage}" />
+    </FlyoutItem>
+
+</Shell>

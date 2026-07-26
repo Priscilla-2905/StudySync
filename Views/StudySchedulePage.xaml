@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudySync.ViewModels"
+             xmlns:models="clr-namespace:StudySync.Models"
+             x:Class="StudySync.Views.StudySchedulePage"
+             x:DataType="vm:StudyScheduleViewModel"
+             Title="Study Schedule">
+
+    <Grid RowDefinitions="Auto, *, Auto" Padding="16" RowSpacing="12">
+
+        <!-- Date Selection Header -->
+        <Grid Grid.Row="0" ColumnDefinitions="*, Auto" ColumnSpacing="12">
+            <DatePicker Grid.Column="0" Date="{Binding SelectedDate}" Format="dddd, MMMM dd, yyyy" HeightRequest="44" />
+            <Button Grid.Column="1" Text="🔄 Regenerate" Style="{StaticResource PrimaryButton}"
+                    Command="{Binding RegenerateScheduleCommand}" HeightRequest="44" FontSize="12" Padding="12,0" />
+        </Grid>
+
+        <!-- Sessions List -->
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Sessions}" SelectionMode="None">
+            <CollectionView.EmptyView>
+                <VStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
+                    <Label Text="No study sessions scheduled for this date." Style="{StaticResource HeaderLabel}" HorizontalOptions="Center" />
+                    <Label Text="Tap 'Regenerate' above to run the auto-scheduler." Style="{StaticResource SubheaderLabel}" HorizontalOptions="Center" />
+                </VStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:StudySession">
+                    <Border Style="{StaticResource CardFrame}" Margin="0,0,0,10">
+                        <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
+                            <CheckBox Grid.Column="0" IsChecked="{Binding Completed}" VerticalOptions="Center"
+                                      Command="{Binding Source={RelativeSource AncestorType={x:Type vm:StudyScheduleViewModel}}, Path=ToggleSessionCompleteCommand}"
+                                      CommandParameter="{Binding .}" />
+
+                            <VStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                <HorizontalStackLayout Spacing="8">
+                                    <Label Text="{Binding Title}" FontAttributes="Bold" Style="{StaticResource BodyLabel}" />
+                                    <Border IsVisible="{Binding IsBreak}" BackgroundColor="#888888" StrokeShape="RoundRectangle 4" Padding="6,1">
+                                        <Label Text="Break" FontSize="10" TextColor="White" FontAttributes="Bold" />
+                                    </Border>
+                                </HorizontalStackLayout>
+
+                                <Label Text="{Binding Course.CourseCode, StringFormat='Course: {0}'}" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                            </VStackLayout>
+
+                            <VStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End">
+                                <Label Text="{Binding StartTime, Converter={StaticResource TimeSpanToStringConverter}}" FontAttributes="Bold" TextColor="{StaticResource Primary}" FontSize="12" />
+                                <Label Text="to" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+                                <Label Text="{Binding EndTime, Converter={StaticResource TimeSpanToStringConverter}}" FontAttributes="Bold" TextColor="{StaticResource Primary}" FontSize="12" />
+                            </VStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudySync.ViewModels"
+             xmlns:models="clr-namespace:StudySync.Models"
+             x:Class="StudySync.Views.CoursesPage"
+             x:DataType="vm:CoursesViewModel"
+             Title="My Courses">
+
+    <Grid RowDefinitions="*, Auto" Padding="16">
+
+        <CollectionView Grid.Row="0" ItemsSource="{Binding Courses}" SelectionMode="None">
+            <CollectionView.EmptyView>
+                <VStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
+                    <Label Text="No courses added yet." Style="{StaticResource HeaderLabel}" HorizontalOptions="Center" />
+                    <Label Text="Tap '+ Add Course' below to create your first course." Style="{StaticResource SubheaderLabel}" HorizontalOptions="Center" />
+                </VStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Course">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete" BackgroundColor="#F44336"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CoursesViewModel}}, Path=DeleteCourseCommand}"
+                                           CommandParameter="{Binding .}" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Border Style="{StaticResource CardFrame}" Margin="0,0,0,12">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CoursesViewModel}}, Path=EditCourseCommand}" CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
+                                <BoxView Grid.Column="0" WidthRequest="6" CornerRadius="3" Color="{Binding Colour}" />
+
+                                <VStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                    <HorizontalStackLayout Spacing="8">
+                                        <Label Text="{Binding CourseCode}" FontAttributes="Bold" Style="{StaticResource HeaderLabel}" />
+                                        <Border BackgroundColor="#E0E0E0" StrokeShape="RoundRectangle 4" Padding="6,2" VerticalOptions="Center">
+                                            <Label Text="{Binding Credits, StringFormat='{0} Credits'}" FontSize="11" TextColor="#333" />
+                                        </Border>
+                                    </HorizontalStackLayout>
+
+                                    <Label Text="{Binding CourseName}" Style="{StaticResource BodyLabel}" />
+                                    <Label Text="{Binding Lecturer, StringFormat='Lecturer: {0}'}" Style="{StaticResource SubheaderLabel}" />
+                                </VStackLayout>
+
+                                <Label Grid.Column="2" Text="➔" FontSize="18" TextColor="{StaticResource TextMuted}" VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="1" Text="+ Add Course" Style="{StaticResource PrimaryButton}" Command="{Binding AddCourseCommand}" Margin="0,12,0,0" />
+
+    </Grid>
+</ContentPage>

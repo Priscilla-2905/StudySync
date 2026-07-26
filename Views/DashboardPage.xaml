@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudySync.ViewModels"
+             xmlns:models="clr-namespace:StudySync.Models"
+             x:Class="StudySync.Views.DashboardPage"
+             x:DataType="vm:DashboardViewModel"
+             Title="Dashboard">
+
+    <ScrollView Padding="16">
+        <VStackLayout Spacing="20">
+
+            <!-- Welcome Header -->
+            <Grid ColumnDefinitions="*, Auto">
+                <VStackLayout Grid.Column="0" Spacing="4">
+                    <Label Text="{Binding WelcomeMessage}" Style="{StaticResource TitleLabel}" />
+                    <Label Text="Here is your academic overview for today" Style="{StaticResource SubheaderLabel}" />
+                </VStackLayout>
+                <Button Grid.Column="1" Text="⚡ Smart Schedule" Style="{StaticResource PrimaryButton}"
+                        Command="{Binding GenerateScheduleCommand}" HeightRequest="40" FontSize="12" Padding="12,0" />
+            </Grid>
+
+            <!-- Key Statistics Grid Cards -->
+            <Grid ColumnDefinitions="*, *" RowDefinitions="Auto, Auto" ColumnSpacing="12" RowSpacing="12">
+
+                <!-- Hours Studied Card -->
+                <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource CardFrame}" Padding="12">
+                    <VStackLayout Spacing="4">
+                        <Label Text="Study Hours" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                        <Label Text="{Binding HoursStudiedThisWeek, StringFormat='{0:F1} hrs'}" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource Primary}" />
+                        <Label Text="This week" FontSize="10" TextColor="{StaticResource TextMuted}" />
+                    </VStackLayout>
+                </Border>
+
+                <!-- Assignments Card -->
+                <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource CardFrame}" Padding="12">
+                    <VStackLayout Spacing="4">
+                        <Label Text="Assignments" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                        <HorizontalStackLayout Spacing="4">
+                            <Label Text="{Binding AssignmentsCompleted}" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource Success}" />
+                            <Label Text="{Binding TotalAssignments, StringFormat='/ {0}'}" FontSize="18" TextColor="{StaticResource TextSecondary}" VerticalOptions="End" />
+                        </HorizontalStackLayout>
+                        <Label Text="Completed" FontSize="10" TextColor="{StaticResource TextMuted}" />
+                    </VStackLayout>
+                </Border>
+
+                <!-- Upcoming Exams Card -->
+                <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource CardFrame}" Padding="12">
+                    <VStackLayout Spacing="4">
+                        <Label Text="Upcoming Exams" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                        <Label Text="{Binding UpcomingExamsCount}" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource Danger}" />
+                        <Label Text="Scheduled" FontSize="10" TextColor="{StaticResource TextMuted}" />
+                    </VStackLayout>
+                </Border>
+
+                <!-- Productivity / Streak Card -->
+                <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource CardFrame}" Padding="12">
+                    <VStackLayout Spacing="4">
+                        <Label Text="Study Streak" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                        <Label Text="{Binding StudyStreak, StringFormat='🔥 {0} Days'}" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource Warning}" />
+                        <Label Text="{Binding ProductivityPercentage, StringFormat='{0:F0}% Rate'}" FontSize="10" TextColor="{StaticResource TextMuted}" />
+                    </VStackLayout>
+                </Border>
+
+            </Grid>
+
+            <!-- Today's Schedule & Sessions -->
+            <VStackLayout Spacing="12">
+                <Label Text="Today's Planned Study Sessions" Style="{StaticResource HeaderLabel}" />
+
+                <CollectionView ItemsSource="{Binding TodaySessions}" SelectionMode="None">
+                    <CollectionView.EmptyView>
+                        <Border Style="{StaticResource CardFrame}" Padding="20">
+                            <Label Text="No study sessions scheduled for today. Click 'Smart Schedule' above to generate!"
+                                   HorizontalOptions="Center" TextColor="{StaticResource TextMuted}" HorizontalTextAlignment="Center" />
+                        </Border>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:StudySession">
+                            <Border Style="{StaticResource CardFrame}" Margin="0,0,0,8" Padding="12">
+                                <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
+                                    <CheckBox Grid.Column="0" IsChecked="{Binding Completed}" VerticalOptions="Center"
+                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DashboardViewModel}}, Path=ToggleSessionCompleteCommand}"
+                                              CommandParameter="{Binding .}" />
+
+                                    <VStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                        <Label Text="{Binding Title}" FontAttributes="Bold" Style="{StaticResource BodyLabel}" />
+                                        <Label Text="{Binding StartTime, Converter={StaticResource TimeSpanToStringConverter}}" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                                    </VStackLayout>
+
+                                    <Label Grid.Column="2" Text="{Binding DurationMinutes, StringFormat='{0:F0} min'}"
+                                           VerticalOptions="Center" FontSize="12" TextColor="{StaticResource Primary}" FontAttributes="Bold" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VStackLayout>
+
+            <!-- Today's Lectures -->
+            <VStackLayout Spacing="12">
+                <Label Text="Today's Lectures" Style="{StaticResource HeaderLabel}" />
+
+                <CollectionView ItemsSource="{Binding TodayLectures}" SelectionMode="None">
+                    <CollectionView.EmptyView>
+                        <Label Text="No lectures today 🎉" TextColor="{StaticResource TextMuted}" Margin="8,0" />
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:TimetableEntry">
+                            <Border Style="{StaticResource CardFrame}" Margin="0,0,0,8" Padding="12">
+                                <Grid ColumnDefinitions="Auto, *, Auto">
+                                    <BoxView Grid.Column="0" WidthRequest="4" CornerRadius="2" Color="{Binding Course.Colour}" Margin="0,0,12,0" />
+                                    <VStackLayout Grid.Column="1" Spacing="2">
+                                        <Label Text="{Binding Course.CourseCode}" FontAttributes="Bold" Style="{StaticResource BodyLabel}" />
+                                        <Label Text="{Binding Venue, StringFormat='Venue: {0}'}" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                                    </VStackLayout>
+                                    <Label Grid.Column="2" Text="{Binding StartTime, Converter={StaticResource TimeSpanToStringConverter}}"
+                                           VerticalOptions="Center" FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VStackLayout>
+
+        </VStackLayout>
+    </ScrollView>
+</ContentPage>
