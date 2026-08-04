@@ -6,20 +6,20 @@
              x:DataType="vm:LoginViewModel"
              Shell.NavBarIsVisible="False">
 
-    <ScrollView ContentPage.IgnoreSafeArea="True">
+    <ScrollView>
         <Grid RowDefinitions="Auto, *">
 
             <!-- Top Header Banner -->
             <BoxView Grid.Row="0" HeightRequest="220" Color="{StaticResource Primary}" />
 
-            <VStackLayout Grid.Row="0" Margin="24,60,24,0" Spacing="8" HorizontalOptions="Center">
+            <VerticalStackLayout Grid.Row="0" Margin="24,60,24,0" Spacing="8" HorizontalOptions="Center">
                 <Label Text="StudySync" FontSize="36" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
                 <Label Text="Smart Study Planner" FontSize="16" TextColor="#D1C4E9" HorizontalOptions="Center" />
-            </VStackLayout>
+            </VerticalStackLayout>
 
             <!-- Login Card -->
             <Border Grid.Row="1" Style="{StaticResource CardFrame}" Margin="24,-40,24,24" VerticalOptions="Start">
-                <VStackLayout Spacing="16">
+                <VerticalStackLayout Spacing="16">
 
                     <Label Text="Welcome Back" Style="{StaticResource TitleLabel}" HorizontalOptions="Center" Margin="0,8" />
 
@@ -30,16 +30,16 @@
                     </Border>
 
                     <!-- Email Field -->
-                    <VStackLayout Spacing="4">
+                    <VerticalStackLayout Spacing="4">
                         <Label Text="Email Address" Style="{StaticResource SubheaderLabel}" />
                         <Entry Placeholder="student@university.edu" Keyboard="Email" Text="{Binding Email}" />
-                    </VStackLayout>
+                    </VerticalStackLayout>
 
                     <!-- Password Field -->
-                    <VStackLayout Spacing="4">
+                    <VerticalStackLayout Spacing="4">
                         <Label Text="Password" Style="{StaticResource SubheaderLabel}" />
                         <Entry Placeholder="••••••••" IsPassword="True" Text="{Binding Password}" />
-                    </VStackLayout>
+                    </VerticalStackLayout>
 
                     <!-- Remember Me -->
                     <HorizontalStackLayout Spacing="8">
@@ -62,7 +62,7 @@
                         </Label>
                     </HorizontalStackLayout>
 
-                </VStackLayout>
+                </VerticalStackLayout>
             </Border>
         </Grid>
     </ScrollView>

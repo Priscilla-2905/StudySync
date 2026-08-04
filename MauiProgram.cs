@@ -4,6 +4,7 @@ using Plugin.LocalNotification;
 using StudySync.Data;
 using StudySync.Services;
 using StudySync.Services.Interfaces;
+using IAppNotificationService = StudySync.Services.Interfaces.INotificationService;
 using StudySync.ViewModels;
 using StudySync.Views;
 
@@ -34,7 +35,7 @@ public static class MauiProgram
         // Business Logic Services
         builder.Services.AddSingleton<IAuthService, AuthenticationService>();
         builder.Services.AddSingleton<IScheduleGeneratorService, ScheduleGeneratorService>();
-        builder.Services.AddSingleton<INotificationService, NotificationService>();
+        builder.Services.AddSingleton<IAppNotificationService, NotificationService>();
         builder.Services.AddSingleton<IExportService, ExportService>();
         builder.Services.AddSingleton<IPreferenceService, PreferenceService>();
         builder.Services.AddSingleton<IStatisticsService, StatisticsService>();

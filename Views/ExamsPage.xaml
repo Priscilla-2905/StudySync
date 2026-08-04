@@ -11,10 +11,10 @@
 
         <CollectionView Grid.Row="0" ItemsSource="{Binding Exams}" SelectionMode="None">
             <CollectionView.EmptyView>
-                <VStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
                     <Label Text="No upcoming exams recorded." Style="{StaticResource HeaderLabel}" HorizontalOptions="Center" />
                     <Label Text="Tap '+ Add Exam' below to track your test dates." Style="{StaticResource SubheaderLabel}" HorizontalOptions="Center" />
-                </VStackLayout>
+                </VerticalStackLayout>
             </CollectionView.EmptyView>
 
             <CollectionView.ItemTemplate>
@@ -36,7 +36,7 @@
                             <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
                                 <BoxView Grid.Column="0" WidthRequest="6" CornerRadius="3" Color="{Binding Course.Colour}" />
 
-                                <VStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
                                     <HorizontalStackLayout Spacing="8">
                                         <Label Text="{Binding Course.CourseCode}" FontAttributes="Bold" Style="{StaticResource HeaderLabel}" />
                                         <Border BackgroundColor="#E0E0E0" StrokeShape="RoundRectangle 4" Padding="6,2">
@@ -46,14 +46,14 @@
 
                                     <Label Text="{Binding Venue, StringFormat='Venue: {0}'}" Style="{StaticResource BodyLabel}" />
                                     <Label Text="{Binding ExamDate, StringFormat='Date: {0:ddd, MMM dd, yyyy}'}" Style="{StaticResource SubheaderLabel}" />
-                                </VStackLayout>
+                                </VerticalStackLayout>
 
-                                <VStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" Spacing="2">
+                                <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" Spacing="2">
                                     <Border BackgroundColor="{StaticResource Primary}" StrokeShape="RoundRectangle 8" Padding="10,6">
                                         <Label Text="{Binding CountdownDisplay}" FontSize="12" TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" />
                                     </Border>
                                     <Label Text="{Binding Time, Converter={StaticResource TimeSpanToStringConverter}}" FontSize="11" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
-                                </VStackLayout>
+                                </VerticalStackLayout>
                             </Grid>
                         </Border>
                     </SwipeView>

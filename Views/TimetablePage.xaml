@@ -27,10 +27,10 @@
         <!-- Lectures List -->
         <CollectionView Grid.Row="1" ItemsSource="{Binding Entries}" SelectionMode="None">
             <CollectionView.EmptyView>
-                <VStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
                     <Label Text="No lectures scheduled for this day." Style="{StaticResource HeaderLabel}" HorizontalOptions="Center" />
                     <Label Text="Tap '+ Add Lecture' below to build your schedule." Style="{StaticResource SubheaderLabel}" HorizontalOptions="Center" />
-                </VStackLayout>
+                </VerticalStackLayout>
             </CollectionView.EmptyView>
 
             <CollectionView.ItemTemplate>
@@ -52,18 +52,18 @@
                             <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
                                 <BoxView Grid.Column="0" WidthRequest="6" CornerRadius="3" Color="{Binding Course.Colour}" />
 
-                                <VStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
                                     <Label Text="{Binding Course.CourseCode}" FontAttributes="Bold" Style="{StaticResource HeaderLabel}" />
                                     <Label Text="{Binding Course.CourseName}" Style="{StaticResource BodyLabel}" />
                                     <Label Text="{Binding Venue, StringFormat='Venue: {0}'}" Style="{StaticResource SubheaderLabel}" />
                                     <Label Text="{Binding Lecturer, StringFormat='Lecturer: {0}'}" FontSize="12" TextColor="{StaticResource TextMuted}" />
-                                </VStackLayout>
+                                </VerticalStackLayout>
 
-                                <VStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End">
+                                <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End">
                                     <Label Text="{Binding StartTime, Converter={StaticResource TimeSpanToStringConverter}}" FontAttributes="Bold" TextColor="{StaticResource Primary}" FontSize="13" />
                                     <Label Text="to" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
                                     <Label Text="{Binding EndTime, Converter={StaticResource TimeSpanToStringConverter}}" FontAttributes="Bold" TextColor="{StaticResource Primary}" FontSize="13" />
-                                </VStackLayout>
+                                </VerticalStackLayout>
                             </Grid>
                         </Border>
                     </SwipeView>

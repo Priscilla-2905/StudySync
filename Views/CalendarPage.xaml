@@ -10,14 +10,14 @@
 
         <!-- Date Picker Card -->
         <Border Grid.Row="0" Style="{StaticResource CardFrame}">
-            <VStackLayout Spacing="8">
+            <VerticalStackLayout Spacing="8">
                 <Label Text="Select Date" Style="{StaticResource HeaderLabel}" />
                 <DatePicker Date="{Binding SelectedDate}" Format="dddd, MMMM dd, yyyy" HeightRequest="44" />
-            </VStackLayout>
+            </VerticalStackLayout>
         </Border>
 
         <!-- Events List for Selected Date -->
-        <VStackLayout Grid.Row="1" Spacing="10">
+        <VerticalStackLayout Grid.Row="1" Spacing="10">
             <Label Text="Events for Selected Day" Style="{StaticResource HeaderLabel}" />
 
             <CollectionView ItemsSource="{Binding DayEvents}" SelectionMode="None">
@@ -34,21 +34,21 @@
                             <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
                                 <BoxView Grid.Column="0" WidthRequest="6" CornerRadius="3" Color="{Binding Color}" />
 
-                                <VStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
                                     <Label Text="{Binding Title}" FontAttributes="Bold" Style="{StaticResource BodyLabel}" />
                                     <Label Text="{Binding Subtitle}" FontSize="12" TextColor="{StaticResource TextSecondary}" />
-                                </VStackLayout>
+                                </VerticalStackLayout>
 
-                                <VStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End">
+                                <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End">
                                     <Label Text="{Binding TimeDisplay}" FontAttributes="Bold" FontSize="12" TextColor="{StaticResource Primary}" />
                                     <Label Text="{Binding EventType}" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="End" />
-                                </VStackLayout>
+                                </VerticalStackLayout>
                             </Grid>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </VStackLayout>
+        </VerticalStackLayout>
 
     </Grid>
 </ContentPage>

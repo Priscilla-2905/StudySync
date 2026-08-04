@@ -1,6 +1,6 @@
 using Plugin.LocalNotification;
 using StudySync.Data;
-using StudySync.Services.Interfaces;
+using INotificationService = StudySync.Services.Interfaces.INotificationService;
 
 namespace StudySync.Services;
 

@@ -204,4 +204,132 @@ public class IntegrationAndAlgorithmTests
         var streak = await statsService.GetStudyStreakAsync(userId);
         Assert.True(streak >= 1);
     }
+
+    [Fact]
+    public async Task ExportService_ExportsJsonAndCsvSuccessfully()
+    {
+        var db = CreateTestDatabase();
+        var exportService = new ExportService(db);
+
+        var userId = 42;
+        var course = new Course { UserId = userId, CourseCode = "CS102", CourseName = "Algorithms", Credits = 4 };
+        await db.SaveAsync(course);
+
+        // 1. Export JSON
+        var jsonFilePath = await exportService.ExportToJsonAsync(userId);
+        Assert.True(File.Exists(jsonFilePath));
+        var jsonContent = await File.ReadAllTextAsync(jsonFilePath);
+        Assert.Contains("CS102", jsonContent);
+
+        // 2. Export CSV
+        var csvDir = await exportService.ExportToCsvAsync(userId);
+        Assert.True(Directory.Exists(csvDir));
+        Assert.True(File.Exists(Path.Combine(csvDir, "Courses.csv")));
+        Assert.True(File.Exists(Path.Combine(csvDir, "Assignments.csv")));
+        Assert.True(File.Exists(Path.Combine(csvDir, "Exams.csv")));
+        Assert.True(File.Exists(Path.Combine(csvDir, "StudySessions.csv")));
+
+        var coursesCsv = await File.ReadAllTextAsync(Path.Combine(csvDir, "Courses.csv"));
+        Assert.Contains("CS102", coursesCsv);
+    }
+
+    [Fact]
+    public async Task DatabaseService_GenericCrudAndUserQueriesWork()
+    {
+        var db = CreateTestDatabase();
+        var userId = 1;
+
+        // Save & Get User
+        var user = new User { FullName = "Jane Doe", Email = "jane@test.com" };
+        var rows = await db.SaveAsync(user);
+        Assert.Equal(1, rows);
+        Assert.True(user.Id > 0);
+
+        var fetchedUser = await db.GetUserByEmailAsync("jane@test.com");
+        Assert.NotNull(fetchedUser);
+        Assert.Equal("Jane Doe", fetchedUser.FullName);
+
+        // Add Todo item
+        var todo = new TodoItem { UserId = userId, Title = "Finish homework", Date = DateTime.Today };
+        await db.SaveAsync(todo);
+
+        var todos = await db.GetTodoItemsAsync(userId, DateTime.Today);
+        Assert.Single(todos);
+        Assert.Equal("Finish homework", todos[0].Title);
+
+        // Delete Todo item
+        await db.DeleteAsync(todo);
+        var todosAfterDelete = await db.GetTodoItemsAsync(userId, DateTime.Today);
+        Assert.Empty(todosAfterDelete);
+    }
+
+    [Fact]
+    public async Task PreferenceService_GetsAndSavesPreferences()
+    {
+        var db = CreateTestDatabase();
+        var prefService = new PreferenceService(db);
+        var userId = 99;
+
+        var prefs = await prefService.GetPreferencesAsync(userId);
+        Assert.NotNull(prefs);
+        Assert.Equal(userId, prefs.UserId);
+
+        prefs.DailyLimit = 5.5;
+        prefs.DarkMode = true;
+        await prefService.SavePreferencesAsync(prefs);
+
+        var updatedPrefs = await prefService.GetPreferencesAsync(userId);
+        Assert.Equal(5.5, updatedPrefs.DailyLimit);
+        Assert.True(updatedPrefs.DarkMode);
+    }
 }
+
+public class ModelPropertiesTests
+{
+    [Fact]
+    public void Assignment_ComputedPropertiesWork()
+    {
+        var pastDeadline = DateTime.Now.AddDays(-1);
+        var assignment = new Assignment
+        {
+            Title = "Test Assignment",
+            Deadline = pastDeadline,
+            Status = AssignmentStatus.Pending
+        };
+
+        Assert.True(assignment.IsOverdue);
+        Assert.Equal(0, assignment.DaysRemaining);
+        Assert.Equal("Pending", assignment.StatusDisplay);
+
+        assignment.Status = AssignmentStatus.Completed;
+        Assert.False(assignment.IsOverdue);
+        Assert.Equal("Completed", assignment.StatusDisplay);
+    }
+
+    [Fact]
+    public void Exam_CountdownDisplay_WorksCorrectly()
+    {
+        var todayExam = new Exam { ExamDate = DateTime.Now.Date };
+        Assert.Equal("Today!", todayExam.CountdownDisplay);
+
+        var tomorrowExam = new Exam { ExamDate = DateTime.Now.Date.AddDays(1) };
+        Assert.Equal("Tomorrow", tomorrowExam.CountdownDisplay);
+
+        var pastExam = new Exam { ExamDate = DateTime.Now.Date.AddDays(-2) };
+        Assert.True(pastExam.IsPast);
+    }
+
+    [Fact]
+    public void StudySession_TimeSpanAndDuration_WorkCorrectly()
+    {
+        var session = new StudySession
+        {
+            StartTime = TimeSpan.FromHours(10),
+            EndTime = TimeSpan.FromHours(11.5)
+        };
+
+        Assert.Equal(90.0, session.DurationMinutes);
+        Assert.Equal(1.5, session.DurationHours);
+    }
+}
+

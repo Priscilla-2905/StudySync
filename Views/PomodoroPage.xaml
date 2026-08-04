@@ -7,7 +7,7 @@
              Title="Pomodoro Timer">
 
     <ScrollView Padding="16">
-        <VStackLayout Spacing="24" HorizontalOptions="Center" VerticalOptions="Center">
+        <VerticalStackLayout Spacing="24" HorizontalOptions="Center" VerticalOptions="Center">
 
             <!-- Mode Header Badge -->
             <Border BackgroundColor="{StaticResource Primary}" StrokeShape="RoundRectangle 20" Padding="16,8" HorizontalOptions="Center">
@@ -20,10 +20,10 @@
                 <Ellipse WidthRequest="260" HeightRequest="260" Stroke="{StaticResource Primary}" StrokeThickness="16"
                          StrokeDashArray="1,0" Scale="{Binding Progress}" />
 
-                <VStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="4">
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="4">
                     <Label Text="{Binding TimerDisplay}" FontSize="48" FontAttributes="Bold" TextColor="{StaticResource Primary}" HorizontalOptions="Center" />
                     <Label Text="{Binding CompletedCycles, StringFormat='Cycles: {0}'}" FontSize="14" TextColor="{StaticResource TextSecondary}" HorizontalOptions="Center" />
-                </VStackLayout>
+                </VerticalStackLayout>
             </Grid>
 
             <!-- Control Buttons Row -->
@@ -39,23 +39,23 @@
 
             <!-- Duration Customizer Card -->
             <Border Style="{StaticResource CardFrame}" WidthRequest="320">
-                <VStackLayout Spacing="12">
+                <VerticalStackLayout Spacing="12">
                     <Label Text="Timer Durations" Style="{StaticResource HeaderLabel}" />
 
                     <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
-                        <VStackLayout Grid.Column="0" Spacing="4">
+                        <VerticalStackLayout Grid.Column="0" Spacing="4">
                             <Label Text="Work (min)" Style="{StaticResource SubheaderLabel}" />
                             <Entry Text="{Binding WorkMinutes}" Keyboard="Numeric" />
-                        </VStackLayout>
+                        </VerticalStackLayout>
 
-                        <VStackLayout Grid.Column="1" Spacing="4">
+                        <VerticalStackLayout Grid.Column="1" Spacing="4">
                             <Label Text="Break (min)" Style="{StaticResource SubheaderLabel}" />
                             <Entry Text="{Binding BreakMinutes}" Keyboard="Numeric" />
-                        </VStackLayout>
+                        </VerticalStackLayout>
                     </Grid>
-                </VStackLayout>
+                </VerticalStackLayout>
             </Border>
 
-        </VStackLayout>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

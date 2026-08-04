@@ -11,10 +11,10 @@
 
         <CollectionView Grid.Row="0" ItemsSource="{Binding Courses}" SelectionMode="None">
             <CollectionView.EmptyView>
-                <VStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
                     <Label Text="No courses added yet." Style="{StaticResource HeaderLabel}" HorizontalOptions="Center" />
                     <Label Text="Tap '+ Add Course' below to create your first course." Style="{StaticResource SubheaderLabel}" HorizontalOptions="Center" />
-                </VStackLayout>
+                </VerticalStackLayout>
             </CollectionView.EmptyView>
 
             <CollectionView.ItemTemplate>
@@ -36,7 +36,7 @@
                             <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
                                 <BoxView Grid.Column="0" WidthRequest="6" CornerRadius="3" Color="{Binding Colour}" />
 
-                                <VStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
                                     <HorizontalStackLayout Spacing="8">
                                         <Label Text="{Binding CourseCode}" FontAttributes="Bold" Style="{StaticResource HeaderLabel}" />
                                         <Border BackgroundColor="#E0E0E0" StrokeShape="RoundRectangle 4" Padding="6,2" VerticalOptions="Center">
@@ -46,7 +46,7 @@
 
                                     <Label Text="{Binding CourseName}" Style="{StaticResource BodyLabel}" />
                                     <Label Text="{Binding Lecturer, StringFormat='Lecturer: {0}'}" Style="{StaticResource SubheaderLabel}" />
-                                </VStackLayout>
+                                </VerticalStackLayout>
 
                                 <Label Grid.Column="2" Text="➔" FontSize="18" TextColor="{StaticResource TextMuted}" VerticalOptions="Center" />
                             </Grid>

@@ -7,32 +7,32 @@
              Title="{Binding Title}">
 
     <ScrollView Padding="16">
-        <VStackLayout Spacing="16">
+        <VerticalStackLayout Spacing="16">
 
             <Border Style="{StaticResource CardFrame}">
-                <VStackLayout Spacing="14">
+                <VerticalStackLayout Spacing="14">
 
-                    <VStackLayout Spacing="4">
+                    <VerticalStackLayout Spacing="4">
                         <Label Text="Course Code *" Style="{StaticResource SubheaderLabel}" />
                         <Entry Placeholder="e.g. CS101" Text="{Binding CourseCode}" />
-                    </VStackLayout>
+                    </VerticalStackLayout>
 
-                    <VStackLayout Spacing="4">
+                    <VerticalStackLayout Spacing="4">
                         <Label Text="Course Name *" Style="{StaticResource SubheaderLabel}" />
                         <Entry Placeholder="e.g. Data Structures &amp; Algorithms" Text="{Binding CourseName}" />
-                    </VStackLayout>
+                    </VerticalStackLayout>
 
-                    <VStackLayout Spacing="4">
+                    <VerticalStackLayout Spacing="4">
                         <Label Text="Lecturer / Instructor" Style="{StaticResource SubheaderLabel}" />
                         <Entry Placeholder="e.g. Dr. Alan Turing" Text="{Binding Lecturer}" />
-                    </VStackLayout>
+                    </VerticalStackLayout>
 
-                    <VStackLayout Spacing="4">
+                    <VerticalStackLayout Spacing="4">
                         <Label Text="Credit Hours" Style="{StaticResource SubheaderLabel}" />
                         <Entry Text="{Binding Credits}" Keyboard="Numeric" />
-                    </VStackLayout>
+                    </VerticalStackLayout>
 
-                    <VStackLayout Spacing="8">
+                    <VerticalStackLayout Spacing="8">
                         <Label Text="Course Color Badge" Style="{StaticResource SubheaderLabel}" />
                         <CollectionView ItemsSource="{Binding ColorOptions}" SelectionMode="Single"
                                         SelectedItem="{Binding SelectedColour}">
@@ -45,13 +45,13 @@
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
-                    </VStackLayout>
+                    </VerticalStackLayout>
 
-                </VStackLayout>
+                </VerticalStackLayout>
             </Border>
 
             <Button Text="Save Course" Style="{StaticResource PrimaryButton}" Command="{Binding SaveCommand}" />
 
-        </VStackLayout>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

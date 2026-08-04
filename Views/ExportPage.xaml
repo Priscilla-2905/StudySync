@@ -7,22 +7,22 @@
              Title="Data Export">
 
     <ScrollView Padding="16">
-        <VStackLayout Spacing="20">
+        <VerticalStackLayout Spacing="20">
 
             <Border Style="{StaticResource CardFrame}">
-                <VStackLayout Spacing="12">
+                <VerticalStackLayout Spacing="12">
                     <Label Text="Export Application Data" Style="{StaticResource HeaderLabel}" />
                     <Label Text="Backup your data or export to CSV spreadsheet files for offline record keeping." Style="{StaticResource SubheaderLabel}" />
 
-                    <VStackLayout Spacing="12" Margin="0,8">
+                    <VerticalStackLayout Spacing="12" Margin="0,8">
                         <Button Text="📄 Export Complete Backup (JSON)" Style="{StaticResource PrimaryButton}" Command="{Binding ExportJsonCommand}" />
                         <Button Text="📊 Export Spreadsheets (CSV)" Style="{StaticResource SecondaryButton}" Command="{Binding ExportCsvCommand}" />
-                    </VStackLayout>
+                    </VerticalStackLayout>
 
                     <Label Text="{Binding StatusMessage}" TextColor="{StaticResource Primary}" HorizontalOptions="Center" FontSize="13" Margin="0,8,0,0" />
-                </VStackLayout>
+                </VerticalStackLayout>
             </Border>
 
-        </VStackLayout>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

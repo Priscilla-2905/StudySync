@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StudySync.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a641e1031fd2092f2abbbd886cd47f7f5ffa4d79")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+08699566b9f9a6a07e93128eb0697f690769a6ae")]
 [assembly: System.Reflection.AssemblyProductAttribute("StudySync.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StudySync.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

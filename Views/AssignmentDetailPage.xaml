@@ -7,61 +7,61 @@
              Title="{Binding Title}">
 
     <ScrollView Padding="16">
-        <VStackLayout Spacing="16">
+        <VerticalStackLayout Spacing="16">
 
             <Border Style="{StaticResource CardFrame}">
-                <VStackLayout Spacing="14">
+                <VerticalStackLayout Spacing="14">
 
-                    <VStackLayout Spacing="4">
+                    <VerticalStackLayout Spacing="4">
                         <Label Text="Assignment Title *" Style="{StaticResource SubheaderLabel}" />
                         <Entry Placeholder="e.g. Lab Report 3" Text="{Binding AssignmentTitle}" />
-                    </VStackLayout>
+                    </VerticalStackLayout>
 
-                    <VStackLayout Spacing="4">
+                    <VerticalStackLayout Spacing="4">
                         <Label Text="Course *" Style="{StaticResource SubheaderLabel}" />
                         <Picker ItemsSource="{Binding Courses}" ItemDisplayBinding="{Binding CourseCode}"
                                 SelectedItem="{Binding SelectedCourse}" Title="Select Course" />
-                    </VStackLayout>
+                    </VerticalStackLayout>
 
-                    <VStackLayout Spacing="4">
+                    <VerticalStackLayout Spacing="4">
                         <Label Text="Description" Style="{StaticResource SubheaderLabel}" />
                         <Editor Placeholder="Notes or requirements..." Text="{Binding Description}" HeightRequest="80" />
-                    </VStackLayout>
+                    </VerticalStackLayout>
 
                     <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
-                        <VStackLayout Grid.Column="0" Spacing="4">
+                        <VerticalStackLayout Grid.Column="0" Spacing="4">
                             <Label Text="Deadline Date *" Style="{StaticResource SubheaderLabel}" />
                             <DatePicker Date="{Binding Deadline}" Format="yyyy-MM-dd" />
-                        </VStackLayout>
+                        </VerticalStackLayout>
 
-                        <VStackLayout Grid.Column="1" Spacing="4">
+                        <VerticalStackLayout Grid.Column="1" Spacing="4">
                             <Label Text="Deadline Time *" Style="{StaticResource SubheaderLabel}" />
                             <TimePicker Time="{Binding DeadlineTime}" Format="hh:mm tt" />
-                        </VStackLayout>
+                        </VerticalStackLayout>
                     </Grid>
 
                     <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
-                        <VStackLayout Grid.Column="0" Spacing="4">
+                        <VerticalStackLayout Grid.Column="0" Spacing="4">
                             <Label Text="Priority Level *" Style="{StaticResource SubheaderLabel}" />
                             <Picker ItemsSource="{Binding PriorityOptions}" SelectedItem="{Binding Priority}" />
-                        </VStackLayout>
+                        </VerticalStackLayout>
 
-                        <VStackLayout Grid.Column="1" Spacing="4">
+                        <VerticalStackLayout Grid.Column="1" Spacing="4">
                             <Label Text="Est. Work Hours *" Style="{StaticResource SubheaderLabel}" />
                             <Entry Text="{Binding EstimatedHours}" Keyboard="Numeric" />
-                        </VStackLayout>
+                        </VerticalStackLayout>
                     </Grid>
 
-                    <VStackLayout Spacing="4">
+                    <VerticalStackLayout Spacing="4">
                         <Label Text="Completion Status *" Style="{StaticResource SubheaderLabel}" />
                         <Picker ItemsSource="{Binding StatusOptions}" SelectedItem="{Binding Status}" />
-                    </VStackLayout>
+                    </VerticalStackLayout>
 
-                </VStackLayout>
+                </VerticalStackLayout>
             </Border>
 
             <Button Text="Save Assignment" Style="{StaticResource PrimaryButton}" Command="{Binding SaveCommand}" />
 
-        </VStackLayout>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

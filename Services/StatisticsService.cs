@@ -29,7 +29,8 @@ public class StatisticsService : IStatisticsService
     public async Task<double> GetWeeklyStudyHoursAsync(int userId)
     {
         var today = DateTime.Now.Date;
-        var startOfWeek = today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday);
+        int diff = (7 + (today.DayOfWeek - DayOfWeek.Monday)) % 7;
+        var startOfWeek = today.AddDays(-diff);
         var endOfWeek = startOfWeek.AddDays(6);
 
         var sessions = await _db.GetStudySessionsRangeAsync(userId, startOfWeek, endOfWeek);
@@ -140,7 +141,8 @@ public class StatisticsService : IStatisticsService
     public async Task<double> GetProductivityPercentageAsync(int userId)
     {
         var today = DateTime.Now.Date;
-        var startOfWeek = today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday);
+        int diff = (7 + (today.DayOfWeek - DayOfWeek.Monday)) % 7;
+        var startOfWeek = today.AddDays(-diff);
 
         var sessions = await _db.GetStudySessionsRangeAsync(userId, startOfWeek, today);
         var nonBreakSessions = sessions.Where(s => !s.IsBreak && s.Date.Date <= today).ToList();

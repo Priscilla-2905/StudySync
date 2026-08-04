@@ -7,49 +7,49 @@
              Title="{Binding Title}">
 
     <ScrollView Padding="16">
-        <VStackLayout Spacing="16">
+        <VerticalStackLayout Spacing="16">
 
             <Border Style="{StaticResource CardFrame}">
-                <VStackLayout Spacing="14">
+                <VerticalStackLayout Spacing="14">
 
-                    <VStackLayout Spacing="4">
+                    <VerticalStackLayout Spacing="4">
                         <Label Text="Course *" Style="{StaticResource SubheaderLabel}" />
                         <Picker ItemsSource="{Binding Courses}" ItemDisplayBinding="{Binding CourseCode}"
                                 SelectedItem="{Binding SelectedCourse}" Title="Select Course" />
-                    </VStackLayout>
+                    </VerticalStackLayout>
 
                     <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
-                        <VStackLayout Grid.Column="0" Spacing="4">
+                        <VerticalStackLayout Grid.Column="0" Spacing="4">
                             <Label Text="Exam Date *" Style="{StaticResource SubheaderLabel}" />
                             <DatePicker Date="{Binding ExamDate}" Format="yyyy-MM-dd" />
-                        </VStackLayout>
+                        </VerticalStackLayout>
 
-                        <VStackLayout Grid.Column="1" Spacing="4">
+                        <VerticalStackLayout Grid.Column="1" Spacing="4">
                             <Label Text="Exam Time *" Style="{StaticResource SubheaderLabel}" />
                             <TimePicker Time="{Binding ExamTime}" Format="hh:mm tt" />
-                        </VStackLayout>
+                        </VerticalStackLayout>
                     </Grid>
 
-                    <VStackLayout Spacing="4">
+                    <VerticalStackLayout Spacing="4">
                         <Label Text="Venue / Room *" Style="{StaticResource SubheaderLabel}" />
                         <Entry Placeholder="e.g. Main Auditorium" Text="{Binding Venue}" />
-                    </VStackLayout>
+                    </VerticalStackLayout>
 
-                    <VStackLayout Spacing="4">
+                    <VerticalStackLayout Spacing="4">
                         <Label Text="Importance Level *" Style="{StaticResource SubheaderLabel}" />
                         <Picker ItemsSource="{Binding ImportanceOptions}" SelectedItem="{Binding Importance}" />
-                    </VStackLayout>
+                    </VerticalStackLayout>
 
-                    <VStackLayout Spacing="4">
+                    <VerticalStackLayout Spacing="4">
                         <Label Text="Notes &amp; Topics to Cover" Style="{StaticResource SubheaderLabel}" />
                         <Editor Placeholder="Key topics, chapters, formula sheets..." Text="{Binding Notes}" HeightRequest="90" />
-                    </VStackLayout>
+                    </VerticalStackLayout>
 
-                </VStackLayout>
+                </VerticalStackLayout>
             </Border>
 
             <Button Text="Save Exam" Style="{StaticResource PrimaryButton}" Command="{Binding SaveCommand}" />
 
-        </VStackLayout>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

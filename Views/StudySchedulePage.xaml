@@ -19,10 +19,10 @@
         <!-- Sessions List -->
         <CollectionView Grid.Row="1" ItemsSource="{Binding Sessions}" SelectionMode="None">
             <CollectionView.EmptyView>
-                <VStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
                     <Label Text="No study sessions scheduled for this date." Style="{StaticResource HeaderLabel}" HorizontalOptions="Center" />
                     <Label Text="Tap 'Regenerate' above to run the auto-scheduler." Style="{StaticResource SubheaderLabel}" HorizontalOptions="Center" />
-                </VStackLayout>
+                </VerticalStackLayout>
             </CollectionView.EmptyView>
 
             <CollectionView.ItemTemplate>
@@ -33,7 +33,7 @@
                                       Command="{Binding Source={RelativeSource AncestorType={x:Type vm:StudyScheduleViewModel}}, Path=ToggleSessionCompleteCommand}"
                                       CommandParameter="{Binding .}" />
 
-                            <VStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                            <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
                                 <HorizontalStackLayout Spacing="8">
                                     <Label Text="{Binding Title}" FontAttributes="Bold" Style="{StaticResource BodyLabel}" />
                                     <Border IsVisible="{Binding IsBreak}" BackgroundColor="#888888" StrokeShape="RoundRectangle 4" Padding="6,1">
@@ -42,13 +42,13 @@
                                 </HorizontalStackLayout>
 
                                 <Label Text="{Binding Course.CourseCode, StringFormat='Course: {0}'}" FontSize="12" TextColor="{StaticResource TextSecondary}" />
-                            </VStackLayout>
+                            </VerticalStackLayout>
 
-                            <VStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End">
+                            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End">
                                 <Label Text="{Binding StartTime, Converter={StaticResource TimeSpanToStringConverter}}" FontAttributes="Bold" TextColor="{StaticResource Primary}" FontSize="12" />
                                 <Label Text="to" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
                                 <Label Text="{Binding EndTime, Converter={StaticResource TimeSpanToStringConverter}}" FontAttributes="Bold" TextColor="{StaticResource Primary}" FontSize="12" />
-                            </VStackLayout>
+                            </VerticalStackLayout>
                         </Grid>
                     </Border>
                 </DataTemplate>

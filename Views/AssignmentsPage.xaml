@@ -11,24 +11,24 @@
 
         <!-- Filters & Sorting Bar -->
         <Grid Grid.Row="0" ColumnDefinitions="*, *" ColumnSpacing="12">
-            <VStackLayout Grid.Column="0" Spacing="2">
+            <VerticalStackLayout Grid.Column="0" Spacing="2">
                 <Label Text="Filter Status" FontSize="11" TextColor="{StaticResource TextSecondary}" />
                 <Picker ItemsSource="{Binding FilterOptions}" SelectedItem="{Binding SelectedFilter}" HeightRequest="40" />
-            </VStackLayout>
+            </VerticalStackLayout>
 
-            <VStackLayout Grid.Column="1" Spacing="2">
+            <VerticalStackLayout Grid.Column="1" Spacing="2">
                 <Label Text="Sort By" FontSize="11" TextColor="{StaticResource TextSecondary}" />
                 <Picker ItemsSource="{Binding SortOptions}" SelectedItem="{Binding SelectedSort}" HeightRequest="40" />
-            </VStackLayout>
+            </VerticalStackLayout>
         </Grid>
 
         <!-- Assignments List -->
         <CollectionView Grid.Row="1" ItemsSource="{Binding FilteredAssignments}" SelectionMode="None">
             <CollectionView.EmptyView>
-                <VStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
                     <Label Text="No assignments found." Style="{StaticResource HeaderLabel}" HorizontalOptions="Center" />
                     <Label Text="Tap '+ Add Assignment' below to create one." Style="{StaticResource SubheaderLabel}" HorizontalOptions="Center" />
-                </VStackLayout>
+                </VerticalStackLayout>
             </CollectionView.EmptyView>
 
             <CollectionView.ItemTemplate>
@@ -50,7 +50,7 @@
                             <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
                                 <BoxView Grid.Column="0" WidthRequest="6" CornerRadius="3" Color="{Binding Course.Colour}" />
 
-                                <VStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
                                     <HorizontalStackLayout Spacing="8">
                                         <Label Text="{Binding Course.CourseCode}" FontAttributes="Bold" FontSize="12" TextColor="{StaticResource TextSecondary}" />
                                         <Border BackgroundColor="{Binding Status, Converter={StaticResource StatusToColorConverter}}"
@@ -62,15 +62,15 @@
                                     <Label Text="{Binding Title}" FontAttributes="Bold" Style="{StaticResource BodyLabel}" />
                                     <Label Text="{Binding Deadline, Converter={StaticResource DateToCountdownConverter}}"
                                            FontSize="12" TextColor="{StaticResource Primary}" FontAttributes="Bold" />
-                                </VStackLayout>
+                                </VerticalStackLayout>
 
-                                <VStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" Spacing="2">
+                                <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" Spacing="2">
                                     <Border BackgroundColor="{Binding Priority, Converter={StaticResource PriorityToColorConverter}}"
                                             StrokeShape="RoundRectangle 4" Padding="6,2">
                                         <Label Text="{Binding Priority}" FontSize="10" TextColor="White" FontAttributes="Bold" />
                                     </Border>
                                     <Label Text="{Binding EstimatedHours, StringFormat='~{0} hrs'}" FontSize="11" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
-                                </VStackLayout>
+                                </VerticalStackLayout>
                             </Grid>
                         </Border>
                     </SwipeView>
